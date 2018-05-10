@@ -6,18 +6,11 @@ using System.Threading.Tasks;
 
 namespace Binary_Academy_Homework
 {
-    enum TypeAuto
-    {
-        Truck,
-        PassengerCar,
-        Motorcycle,
-        Bus
-    }
     static class Settings
     {
         static public int Timeout { get; private set; }
 
-        static readonly Dictionary<TypeAuto, double> Dictionary;
+        static readonly Dictionary<CarType, double> Dictionary;
 
         static public int ParkingSpace { get; private set; }
 
@@ -26,12 +19,12 @@ namespace Binary_Academy_Homework
         static Settings()
         {
             Timeout = 3;
-            Dictionary = new Dictionary<TypeAuto, double>()
+            Dictionary = new Dictionary<CarType, double>()
             {
-                [TypeAuto.Bus] = 2,
-                [TypeAuto.Motorcycle] = 1,
-                [TypeAuto.PassengerCar] = 3,
-                [TypeAuto.Truck] = 4
+                [CarType.Bus] = 2,
+                [CarType.Motorcycle] = 1,
+                [CarType.Passenger] = 3,
+                [CarType.Truck] = 4
             };
             ParkingSpace = 300;
             Fine = 0.5;
