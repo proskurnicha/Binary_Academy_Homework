@@ -13,5 +13,11 @@ namespace Binary_Academy_Homework
         public double Balance { get; set; }
 
         public CarType CarType { get; set; }
+
+        public void TopUpBalance(double totalMoney)
+        {
+            if (totalMoney > 0)
+                Balance += totalMoney;
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Binary_Academy_Homework
     {
         static public int Timeout { get; private set; }
 
-        static readonly Dictionary<CarType, double> Dictionary;
+        static public readonly Dictionary<CarType, double> Dictionary;
 
         static public int ParkingSpace { get; private set; }
 
@@ -18,7 +18,7 @@ namespace Binary_Academy_Homework
 
         static Settings()
         {
-            Timeout = 3;
+            Timeout = 3000;
             Dictionary = new Dictionary<CarType, double>()
             {
                 [CarType.Bus] = 2,
@@ -27,7 +27,7 @@ namespace Binary_Academy_Homework
                 [CarType.Truck] = 4
             };
             ParkingSpace = 300;
-            Fine = 0.5;
+            Fine = 1.5;
         }
     }
 }
