@@ -10,8 +10,13 @@ namespace Binary_Academy_Homework
     {
         public DateTime DateTransaction { get; set; }
 
-        public int IdentifierCar { get; set; }
+        public string IdentifierCar { get; set; }
 
         public double WrittenOffFunds { get; set; }
+
+        public override string ToString()
+        {
+            return WrittenOffFunds + IdentifierCar + DateTransaction.ToShortTimeString();
+        }
     }
 }

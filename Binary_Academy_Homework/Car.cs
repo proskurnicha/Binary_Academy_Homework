@@ -8,7 +8,7 @@ namespace Binary_Academy_Homework
 {
     class Car
     {
-        public int Identifier { get; set; }
+        public string Identifier { get; set; }
 
         public double Balance { get; set; }
 

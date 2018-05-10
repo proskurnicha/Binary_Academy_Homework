@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 
 namespace Binary_Academy_Homework
@@ -10,8 +11,6 @@ namespace Binary_Academy_Homework
 
         public static Parking Instance { get { return lazy.Value; } }
 
-        public Timer Timer { get => timer; set => timer = value; }
-
         static List<Car> listCars;
 
         static List<Transaction> listTransactions;
@@ -20,9 +19,8 @@ namespace Binary_Academy_Homework
 
         public static int CountFreeParkingSpace { get; private set; }
 
-        private Parking()
+        public Parking()
         {
-            //Parking - данный класс при инициализации использует настройки описанные в классе Settings:
             listCars = new List<Car>();
             listTransactions = new List<Transaction>();
             CountFreeParkingSpace = Settings.ParkingSpace;
@@ -49,7 +47,23 @@ namespace Binary_Academy_Homework
                 Console.WriteLine($"Your balance {car.Balance}, please top up balance and try again");
         }
 
-        private Timer timer = new Timer(new TimerCallback(new Parking().CashBack), null, 0, Settings.Timeout);
+        private Timer timer = new Timer(new TimerCallback(new Parking().CashBack), null, 0, 60000);
+
+        private Timer timerWriteTransaction = new Timer(new TimerCallback(new Parking().WriteToFileTransactions), null, 0, 60000);
+
+        private void WriteToFileTransactions(object obj)
+        {
+            listTransactions.RemoveAll(TimesMoreThanOneMinute);
+            FileStream file = File.Open("Transaction.log", FileMode.OpenOrCreate);
+            StreamWriter streamWriter = new StreamWriter(file);
+            streamWriter.WriteLine(listTransactions[0].DateTransaction.ToShortDateString());
+            foreach (var item in listTransactions)
+            {
+                streamWriter.WriteLineAsync(item.ToString());
+            }
+            streamWriter.Close();
+            file.Close();
+        }
 
         private void CashBack(object obj)
         {
@@ -69,6 +83,24 @@ namespace Binary_Academy_Homework
                 Balance += writtenOfMoney;
                 Transaction transaction = new Transaction() { DateTransaction = DateTime.Now, IdentifierCar = car.Identifier, WrittenOffFunds = writtenOfMoney };
                 listTransactions.Add(transaction);
+            }
+        }
+        private static bool TimesMoreThanOneMinute(Transaction transaction)
+        {
+            TimeSpan span = new TimeSpan();
+            span = DateTime.Now.Subtract(transaction.DateTransaction);
+            return span.TotalSeconds > 60;
+        }
+
+        public void GetTransactions()
+        {
+            FileStream file = File.Open("Transaction.log", FileMode.OpenOrCreate);
+            StreamReader streamReader = new StreamReader(file);
+            string input;
+            Console.WriteLine($"Date: {streamReader.ReadLine()}");
+            while ((input = streamReader.ReadLine()) != null)
+            {
+                Console.WriteLine(input);
             }
         }
     }
