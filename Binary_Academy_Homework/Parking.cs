@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Binary_Academy_Homework
 {
@@ -21,24 +18,34 @@ namespace Binary_Academy_Homework
 
         static double Balance;
 
+        public static int CountFreeParkingSpace { get; private set; }
+
         private Parking()
         {
             //Parking - данный класс при инициализации использует настройки описанные в классе Settings:
             listCars = new List<Car>();
             listTransactions = new List<Transaction>();
+            CountFreeParkingSpace = Settings.ParkingSpace;
         }
 
         public void AddCar(Car car)
         {
-            if (car != null)
+            if (car != null && CountFreeParkingSpace > 0)
+            {
+                CountFreeParkingSpace--;
                 listCars.Add(car);
+            }
+            else
+            {
+                Console.WriteLine("Sorry, parking don`t have a free parking place");
+            }
         }
 
         public void RemoveCar(Car car)
         {
             if (car != null && car.Balance >= 0)
                 listCars.Remove(car);
-            if(car.Balance < 0)
+            if (car.Balance < 0)
                 Console.WriteLine($"Your balance {car.Balance}, please top up balance and try again");
         }
 
@@ -46,12 +53,22 @@ namespace Binary_Academy_Homework
 
         private void CashBack(object obj)
         {
-            foreach (var item in listCars)
+            double writtenOfMoney;
+            foreach (var car in listCars)
             {
-                if (item.Balance < Settings.Dictionary[item.CarType])
-                    item.Balance -= Settings.Dictionary[item.CarType] * Settings.Fine;
+
+                if (car.Balance < Settings.Dictionary[car.CarType])
+                {
+                    writtenOfMoney = Settings.Dictionary[car.CarType] * Settings.Fine;
+                }
                 else
-                    item.Balance -= Settings.Dictionary[item.CarType];
+                {
+                    writtenOfMoney = Settings.Dictionary[car.CarType];
+                }
+                car.Balance -= writtenOfMoney;
+                Balance += writtenOfMoney;
+                Transaction transaction = new Transaction() { DateTransaction = DateTime.Now, IdentifierCar = car.Identifier, WrittenOffFunds = writtenOfMoney };
+                listTransactions.Add(transaction);
             }
         }
     }
