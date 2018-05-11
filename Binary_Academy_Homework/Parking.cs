@@ -11,7 +11,7 @@ namespace Binary_Academy_Homework
 
         public static Parking Instance { get { return lazy.Value; } }
 
-        static List<Car> listCars;
+        public static List<Car> listCars;
 
         static List<Transaction> listTransactions;
 
@@ -42,7 +42,7 @@ namespace Binary_Academy_Homework
             }
         }
 
-        public void RemoveCar(string identifier)
+        public bool RemoveCar(string identifier)
         {
             Car car = null;
             foreach (var item in listCars)
@@ -52,10 +52,15 @@ namespace Binary_Academy_Homework
             }
 
             if (car != null && car.Balance >= 0)
+            {
                 listCars.Remove(car);
+                CountFreeParkingSpace++;
+                return true;
+            }
 
-            if (car.Balance < 0)
+            if (car != null && car.Balance < 0)
                 Console.WriteLine($"Your balance {car.Balance}, please top up balance and try again");
+            return false;
         }
 
         private Timer timer = new Timer(WrittenOfMoney, null, 0, Settings.Timeout);
@@ -113,6 +118,10 @@ namespace Binary_Academy_Homework
             {
                 string input;
                 Console.WriteLine($"Date: {streamReader.ReadLine()}");
+                if((input = streamReader.ReadLine())==null)
+                    Console.WriteLine("One minute has not passed yet, please try a little later");
+                else
+                    Console.WriteLine(input);
                 while ((input = streamReader.ReadLine()) != null)
                 {
                     Console.WriteLine(input);

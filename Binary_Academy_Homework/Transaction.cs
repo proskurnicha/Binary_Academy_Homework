@@ -16,7 +16,7 @@ namespace Binary_Academy_Homework
 
         public override string ToString()
         {
-            return WrittenOffFunds + " " + IdentifierCar + " " + DateTransaction.ToLongTimeString();
+            return String.Format("{0, 10}|{1,8}|{2,10}", WrittenOffFunds, IdentifierCar, DateTransaction.ToLongTimeString());
         }
     }
 }
