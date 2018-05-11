@@ -56,28 +56,37 @@ namespace Binary_Academy_Homework
         private static void AddCar()
         {
             Console.Clear();
-            Console.WriteLine("Please enter an identifier of car");
-            string identifier = Console.ReadLine().ToString();
-            Console.WriteLine("Please enter an balance of car");
-            double balance = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Please choose  a number type of car");
-            Console.WriteLine("1 - Truck\n2 - Passenger\n3 - Motorcycle\n4 - Bus");
-            CarType carType;
-            int carTypeNum = Convert.ToInt32(Console.ReadLine());
-            if (carTypeNum >= 1 && carTypeNum <= 4)
-                carType = (CarType)(carTypeNum - 1);
-            else
+            try
             {
-                Console.WriteLine("Data is uncorrect, identifier - 1");
-                carType = CarType.Truck;
+                Console.WriteLine("Please enter an identifier of car");
+                string identifier = Console.ReadLine().ToString();
+                if (identifier == String.Empty)
+                    throw new Exception("Identifier is empty");
+                Console.WriteLine("Please enter an balance of car");
+                double balance = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Please choose  a number type of car");
+                Console.WriteLine("1 - Truck\n2 - Passenger\n3 - Motorcycle\n4 - Bus");
+                CarType carType;
+                int carTypeNum = Convert.ToInt32(Console.ReadLine());
+                if (carTypeNum >= 1 && carTypeNum <= 4)
+                    carType = (CarType)(carTypeNum - 1);
+                else
+                {
+                    throw new Exception("Type of car incorrect");
+                }
+                bool result = parking.AddCar(new Car() { Identifier = identifier, Balance = balance, CarType = carType });
+
+                if (result)
+                    Console.WriteLine("Parking was added");
+                else
+                    Console.WriteLine("Sorry, parking don`t have a free parking place");
             }
-
-            bool result = parking.AddCar(new Car() { Identifier = identifier, Balance = balance, CarType = carType });
-
-            if (result)
-                Console.WriteLine("Parking was added");
-            else
-                Console.WriteLine("Sorry, parking don`t have a free parking place");
+            catch (Exception e)
+            {
+                Console.WriteLine("Inncorect date please try again");   
+            }
+            
+            
             Console.WriteLine("Press any key to continue");
             Console.ReadLine();
             DoWork();
@@ -92,7 +101,7 @@ namespace Binary_Academy_Homework
             if(result)
                 Console.WriteLine("Car was removed");
             else
-                Console.WriteLine("Car wasn`t removed ");
+                Console.WriteLine("Car wasn`t removed, because identifier not found");
             Console.WriteLine("Press any key to continue");
             Console.ReadLine();
             DoWork();
