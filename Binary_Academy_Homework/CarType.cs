@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Binary_Academy_Homework
 {
-    class Program
+    enum CarType
     {
-        static void Main(string[] args)
-        {
-            Menu.DoWork();
-            Console.ReadLine();
-        }
+        Truck,
+        Passenger,
+        Motorcycle,
+        Bus
     }
 }
-
