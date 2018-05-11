@@ -118,6 +118,10 @@ namespace Binary_Academy_Homework
             {
                 string input;
                 Console.WriteLine($"Date: {streamReader.ReadLine()}");
+                if((input = streamReader.ReadLine())==null)
+                    Console.WriteLine("One minute has not passed yet, please try a little later");
+                else
+                    Console.WriteLine(input);
                 while ((input = streamReader.ReadLine()) != null)
                 {
                     Console.WriteLine(input);
