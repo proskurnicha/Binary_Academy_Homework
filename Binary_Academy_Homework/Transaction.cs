@@ -16,7 +16,7 @@ namespace Binary_Academy_Homework
 
         public override string ToString()
         {
-            return WrittenOffFunds + IdentifierCar + DateTransaction.ToShortTimeString();
+            return WrittenOffFunds + " " + IdentifierCar + " " + DateTransaction.ToLongTimeString();
         }
     }
 }
