@@ -29,6 +29,24 @@ namespace Binary_Academy_Homework
                 case '2':
                     RemoveCar();
                     break;
+                case '3':
+                    GetTransactions();
+                    break;
+                case '4':
+                    GetBalance();
+                    break;
+                case '5':
+                    GetCountFreeSpace();
+                    break;
+                case '6':
+                    GetBalanceLastMinute();
+                    break;
+                case '7':
+                    RefillBalanceMachine();
+                    break;
+                case '8':
+                    //Console. Exit();
+                    break;
                 default:
                     break;
             }
@@ -47,13 +65,13 @@ namespace Binary_Academy_Homework
             CarType carType;
             int carTypeNum = Convert.ToInt32(Console.ReadLine());
             if (carTypeNum >= 1 && carTypeNum <= 4)
-                carType = (CarType)Convert.ToInt32(Console.ReadLine());
+                carType = (CarType)(carTypeNum - 1);
             else
             {
                 Console.WriteLine("Data is uncorrect, identifier - 1");
                 carType = CarType.Truck;
             }
-            
+
             bool result = parking.AddCar(new Car() { Identifier = identifier, Balance = balance, CarType = carType });
 
             if (result)
@@ -67,9 +85,68 @@ namespace Binary_Academy_Homework
 
         private static void RemoveCar()
         {
+            Console.Clear();
             Console.WriteLine("Please enter an identifier of car");
-            string identifier = Console.ReadKey().ToString();
-            parking.RemoveCar(identifier);
+            string identifier = Console.ReadLine().ToString();
+            bool result = parking.RemoveCar(identifier);
+            if(result)
+                Console.WriteLine("Car was removed");
+            else
+                Console.WriteLine("Car wasn`t removed ");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadLine();
+            DoWork();
+        }
+
+        private static void GetTransactions()
+        {
+            Console.Clear();
+            Console.WriteLine("The transactions: ");
+            parking.GetTransactions();
+            Console.WriteLine("Press any key to continue");
+            Console.ReadLine();
+            DoWork();
+        }
+
+        private static void GetBalance()
+        {
+            Console.Clear();
+            Console.WriteLine("The parking balance: " + Parking.Balance);
+            Console.WriteLine("Press any key to continue");
+            Console.ReadLine();
+            DoWork();
+        }
+
+        private static void GetCountFreeSpace()
+        {
+            Console.Clear();
+            Console.WriteLine("Count free parking space: " + parking.CountFreeParkingSpace);
+            Console.WriteLine("Press any key to continue");
+            Console.ReadLine();
+            DoWork();
+        }
+
+        private static void GetBalanceLastMinute()
+        {
+            Console.Clear();
+            Console.WriteLine("The parking balance of the last minute: " + Parking.BalanceLastMinute);
+            Console.WriteLine("Press any key to continue");
+            Console.ReadLine();
+            DoWork();
+        }
+
+        private static void RefillBalanceMachine()
+        {
+            Console.Clear();
+            Console.WriteLine("Please enter the sum");
+            double  sum = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Please enter the car identifier");
+            string identifier = Console.ReadLine();
+            Car car2 =  Parking.listCars.FindLast(car => car.Identifier == identifier);
+            car2.TopUpBalance(sum);
+            Console.WriteLine("Press any key to continue");
+            Console.ReadLine();
+            DoWork();
         }
     }
 }
