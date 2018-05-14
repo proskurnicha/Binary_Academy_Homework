@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
-namespace Binary_Academy_Homework
+namespace ClassLibrary
 {
-    class Parking
+    public class Parking
     {
         private static readonly Lazy<Parking> lazy = new Lazy<Parking>(() => new Parking());
 
@@ -63,23 +63,29 @@ namespace Binary_Academy_Homework
             return false;
         }
 
-        private Timer timer = new Timer(WrittenOfMoney, null, 0, Settings.Timeout);
+        private Timer timer = new Timer(WrittenOfMoney, null, 1000, Settings.Timeout);
 
-        private Timer timerWriteTransaction = new Timer(WriteToFileTransactions, null, 0, 60000);
+        private Timer timerWriteTransaction = new Timer(WriteToFileTransactions, null, 1000, 60000);
 
         private static void WriteToFileTransactions(object obj)
         {
             BalanceLastMinute = 0;
             listTransactions.RemoveAll(TimesMoreThanOneMinute);
             string path = "Transaction.log";
-            using (StreamWriter streamWriter = new StreamWriter(path))
+            try
             {
-                streamWriter.WriteLine(DateTime.Now.ToShortDateString());
-                foreach (var item in listTransactions)
+                using (StreamWriter streamWriter = new StreamWriter(path))
                 {
-                    streamWriter.WriteLineAsync(item.ToString());
-                    BalanceLastMinute += item.WrittenOffFunds;
+                    streamWriter.WriteLine(DateTime.Now.ToShortDateString());
+                    foreach (var item in listTransactions)
+                    {
+                        streamWriter.WriteLineAsync(item.ToString());
+                        BalanceLastMinute += item.WrittenOffFunds;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
             }
         }
 

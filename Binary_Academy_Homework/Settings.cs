@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Binary_Academy_Homework
+namespace ClassLibrary
 {
     static class Settings
     {

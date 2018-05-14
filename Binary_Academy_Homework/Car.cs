@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Binary_Academy_Homework
+namespace ClassLibrary
 {
-    class Car
+    public class Car
     {
         public string Identifier { get; set; }
 
