@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ClassLibrary;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,12 @@ namespace WebParking
 {
     public class Program
     {
+        public static Parking parking;
+
+        static Program()
+        {
+            parking = new Parking();
+        }
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();

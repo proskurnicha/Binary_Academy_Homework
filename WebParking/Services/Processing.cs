@@ -10,15 +10,7 @@ namespace WebParking.Services
 {
     public class Processing
     {
-        Parking parking;
-
-        public Processing()
-        {
-            parking = new Parking();
-            parking.AddCar(new Car { Identifier = "A", Balance = 300, CarType = CarType.Bus });
-            parking.AddCar(new Car { Identifier = "B", Balance = 500, CarType = CarType.Passenger });
-
-        }
+        
 
         public List<Car> GetCars()
         {
@@ -27,22 +19,22 @@ namespace WebParking.Services
 
         public void AddCar(Car car)
         {
-            parking.AddCar(car);
+            Program.parking.AddCar(car);
         }
 
         public List<Transaction> GetTransaction()
         {
-            return parking.GetTransactions();
+            return Program.parking.GetTransactions();
         }
 
         public List<Transaction> GetTransactionLastMinute()
         {
-            return parking.GetTransactionsLastMinute();
+            return Program.parking.GetTransactionsLastMinute();
         }
 
         public int GetCountFreePlace()
         {
-            return parking.CountFreeParkingSpace;
+            return Program.parking.CountFreeParkingSpace;
         }
 
         public int GetCountOqPlace()

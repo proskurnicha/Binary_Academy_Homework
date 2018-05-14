@@ -48,11 +48,16 @@ namespace WebParking.Controllers
         //Поповнити баланс машини(PUT)
         // PUT: api/Transactions/5
         [HttpPut("{id}")]
-        public void Put(string id, [FromBody]Transaction value)
+        public void Put(string id, [FromBody]TopUpBalanceModel value)
         {
             IEnumerable<Car> cars = (_service.GetCars()).Where(x => x.Identifier == id);
-            if (cars != null)
-                cars.First().TopUpBalance(value.WrittenOffFunds);
+            if (cars.Count() > 0)
+                cars.First().TopUpBalance(value.Value);
         }
+    }
+
+    public class TopUpBalanceModel
+    {
+        public double Value { get; set; }
     }
 }

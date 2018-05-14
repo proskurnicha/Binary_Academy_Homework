@@ -66,9 +66,9 @@ namespace ClassLibrary
             return false;
         }
 
-        private Timer timer = new Timer(WrittenOfMoney, null, 1000, Settings.Timeout);
+        private Timer timer = new Timer(WrittenOfMoney, null, 0, Settings.Timeout);
 
-        private Timer timerWriteTransaction = new Timer(WriteToFileTransactions, null, 1000, 60000);
+        private Timer timerWriteTransaction = new Timer(WriteToFileTransactions, null, 0, 60000);
 
         private static void WriteToFileTransactions(object obj)
         {
