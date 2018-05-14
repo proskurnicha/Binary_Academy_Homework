@@ -1,21 +1,19 @@
 ﻿using ClassLibrary;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
+using ClassLibrary;
 
 namespace WebParking.Services
 {
-    public class ProcessingCar
+    public class ProcessingTransactions
     {
         Parking parking;
 
-        public ProcessingCar()
+        public ProcessingTransactions()
         {
             parking = new Parking();
-            parking.AddCar(new Car { Identifier = "A", Balance = 300, CarType = CarType.Bus });
         }
 
         public List<Car> GetCars()
@@ -23,15 +21,9 @@ namespace WebParking.Services
             return Parking.listCars;
         }
 
-        public void AddCar(Car car)
-        {
-            parking.AddCar(car);
-        }
-
         public List<Transaction> GetTransaction()
         {
             return parking.GetTransactions();
         }
-
     }
 }

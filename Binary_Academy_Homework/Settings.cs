@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-    static class Settings
+    public static class Settings
     {
         static public int Timeout { get; private set; }
 

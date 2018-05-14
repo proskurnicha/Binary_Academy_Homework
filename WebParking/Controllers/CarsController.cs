@@ -36,7 +36,6 @@ namespace WebParking.Controllers
         }
 
         // POST: api/Cars
-        //Додати машину (POST)
         [HttpPost]
         public Car Post([FromBody]Car car)
         {

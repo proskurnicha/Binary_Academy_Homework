@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary
 {
-    class Transaction
+    public class Transaction
     {
         public DateTime DateTransaction { get; set; }
 

@@ -13,7 +13,7 @@ namespace ClassLibrary
 
         public static List<Car> listCars;
 
-        static List<Transaction> listTransactions;
+        public static List<Transaction> listTransactions;
 
         public static double Balance { get; private set; }
 
@@ -117,22 +117,30 @@ namespace ClassLibrary
             return span.TotalSeconds > 60;
         }
 
-        public void GetTransactions()
+        public List<Transaction> GetTransactions()
         {
             string path = "Transaction.log";
-            using (StreamReader streamReader = new StreamReader(path))
+            try
             {
-                string input;
-                Console.WriteLine($"Date: {streamReader.ReadLine()}");
-                if((input = streamReader.ReadLine())==null)
-                    Console.WriteLine("One minute has not passed yet, please try a little later");
-                else
-                    Console.WriteLine(input);
-                while ((input = streamReader.ReadLine()) != null)
+                using (StreamReader streamReader = new StreamReader(path))
                 {
-                    Console.WriteLine(input);
+                    string input;
+                    Console.WriteLine($"Date: {streamReader.ReadLine()}");
+                    if ((input = streamReader.ReadLine()) == null)
+                        Console.WriteLine("One minute has not passed yet, please try a little later");
+                    else
+                        Console.WriteLine(input);
+                    while ((input = streamReader.ReadLine()) != null)
+                    {
+                        Console.WriteLine(input);
+                    }
                 }
             }
+            catch (Exception)
+            {
+            }
+           
+            return listTransactions;
         }
     }
 }
