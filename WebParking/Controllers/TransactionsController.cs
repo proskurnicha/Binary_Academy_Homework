@@ -11,10 +11,7 @@ namespace WebParking.Controllers
 {
     [Produces("application/json")]
     [Route("api/Transactions")]
-    //-Вивести Transactions.log (GET)
-    //-Вивести транзакції за останню хвилину(GET)
-    //-Вивести транзакції за останню хвилину по одній конкретній машині(GET)
-    //-Поповнити баланс машини(PUT)
+
     public class TransactionsController : Controller
     {
         private Processing _service;
@@ -24,24 +21,31 @@ namespace WebParking.Controllers
             _service = service;
         }
 
-        // GET: api/Cars
-
+        //Вивести Transactions.log (GET)
+        // GET: api/Transactions/log
+        [HttpGet("log")]
+        public IEnumerable<Transaction> GetLog()
+        {
+            return _service.GetTransaction();
+        }
 
         //Вивести транзакції за останню хвилину(GET)
         // GET: api/Transactions
         [HttpGet]
         public IEnumerable<Transaction> Get()
         {
-            return _service.GetTransaction();
+            return _service.GetTransactionLastMinute();
         }
 
-        // GET: api/Transactions/5
+        //-Вивести транзакції за останню хвилину по одній конкретній машині(GET)
+        // GET: api/Transactions/A
         [HttpGet("{id}")]
         public IEnumerable<Transaction> Get(string id)
         {
-            return (_service.GetTransaction()).Where(x => x.IdentifierCar == id);
+            return (_service.GetTransactionLastMinute()).Where(x => x.IdentifierCar == id);
         }
 
+        //Поповнити баланс машини(PUT)
         // PUT: api/Transactions/5
         [HttpPut("{id}")]
         public void Put(string id, [FromBody]Transaction value)

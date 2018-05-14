@@ -16,6 +16,8 @@ namespace WebParking.Services
         {
             parking = new Parking();
             parking.AddCar(new Car { Identifier = "A", Balance = 300, CarType = CarType.Bus });
+            parking.AddCar(new Car { Identifier = "B", Balance = 500, CarType = CarType.Passenger });
+
         }
 
         public List<Car> GetCars()
@@ -31,6 +33,11 @@ namespace WebParking.Services
         public List<Transaction> GetTransaction()
         {
             return parking.GetTransactions();
+        }
+
+        public List<Transaction> GetTransactionLastMinute()
+        {
+            return parking.GetTransactionsLastMinute();
         }
 
         public int GetCountFreePlace()

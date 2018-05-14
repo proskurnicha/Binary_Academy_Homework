@@ -15,6 +15,8 @@ namespace ClassLibrary
 
         public static List<Transaction> listTransactions;
 
+        public static List<Transaction> listTransactionsLastMinute;
+
         public static double Balance { get; private set; }
 
         public static double BalanceLastMinute { get; private set; }
@@ -25,6 +27,7 @@ namespace ClassLibrary
         {
             listCars = new List<Car>();
             listTransactions = new List<Transaction>();
+            listTransactionsLastMinute = new List<Transaction>();
             CountFreeParkingSpace = Settings.ParkingSpace;
         }
 
@@ -70,7 +73,8 @@ namespace ClassLibrary
         private static void WriteToFileTransactions(object obj)
         {
             BalanceLastMinute = 0;
-            listTransactions.RemoveAll(TimesMoreThanOneMinute);
+            listTransactionsLastMinute = listTransactions;
+            listTransactionsLastMinute.RemoveAll(TimesMoreThanOneMinute);
             string path = "Transaction.log";
             try
             {
@@ -141,6 +145,11 @@ namespace ClassLibrary
             }
            
             return listTransactions;
+        }
+
+        public List<Transaction> GetTransactionsLastMinute()
+        {
+            return listTransactionsLastMinute;
         }
     }
 }
