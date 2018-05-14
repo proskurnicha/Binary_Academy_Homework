@@ -27,7 +27,6 @@ namespace ClassLibrary
         {
             listCars = new List<Car>();
             listTransactions = new List<Transaction>();
-            listTransactionsLastMinute = new List<Transaction>();
             CountFreeParkingSpace = Settings.ParkingSpace;
         }
 
@@ -66,15 +65,14 @@ namespace ClassLibrary
             return false;
         }
 
-        private Timer timer = new Timer(WrittenOfMoney, null, 0, Settings.Timeout);
+        private Timer timer = new Timer(WrittenOfMoney, null, 1000, Settings.Timeout);
 
-        private Timer timerWriteTransaction = new Timer(WriteToFileTransactions, null, 0, 60000);
+        private Timer timerWriteTransaction = new Timer(WriteToFileTransactions, null, 1000, 60000);
 
         private static void WriteToFileTransactions(object obj)
         {
             BalanceLastMinute = 0;
-            listTransactionsLastMinute = listTransactions;
-            listTransactionsLastMinute.RemoveAll(TimesMoreThanOneMinute);
+            listTransactions.RemoveAll(TimesMoreThanOneMinute);
             string path = "Transaction.log";
             try
             {
@@ -143,12 +141,14 @@ namespace ClassLibrary
             catch (Exception)
             {
             }
-           
+
             return listTransactions;
         }
 
         public List<Transaction> GetTransactionsLastMinute()
         {
+            listTransactionsLastMinute = listTransactions;
+            listTransactionsLastMinute.RemoveAll(TimesMoreThanOneMinute);
             return listTransactionsLastMinute;
         }
     }

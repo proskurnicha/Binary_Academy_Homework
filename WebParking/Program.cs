@@ -18,6 +18,7 @@ namespace WebParking
         static Program()
         {
             parking = new Parking();
+            parking.AddCar(new Car() { Identifier = "A", Balance = 800, CarType = CarType.Motorcycle });
         }
         public static void Main(string[] args)
         {

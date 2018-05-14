@@ -26,7 +26,7 @@ namespace WebParking.Controllers
         [HttpGet("log")]
         public IEnumerable<Transaction> GetLog()
         {
-            return _service.GetTransaction();
+            return _service.GetTransactions();
         }
 
         //Вивести транзакції за останню хвилину(GET)
@@ -34,7 +34,7 @@ namespace WebParking.Controllers
         [HttpGet]
         public IEnumerable<Transaction> Get()
         {
-            return _service.GetTransactionLastMinute();
+            return _service.GetTransactionsLastMinute();
         }
 
         //-Вивести транзакції за останню хвилину по одній конкретній машині(GET)
@@ -42,7 +42,7 @@ namespace WebParking.Controllers
         [HttpGet("{id}")]
         public IEnumerable<Transaction> Get(string id)
         {
-            return (_service.GetTransactionLastMinute()).Where(x => x.IdentifierCar == id);
+            return (_service.GetTransactionsLastMinute()).Where(x => x.IdentifierCar == id);
         }
 
         //Поповнити баланс машини(PUT)

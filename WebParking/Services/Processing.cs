@@ -10,8 +10,6 @@ namespace WebParking.Services
 {
     public class Processing
     {
-        
-
         public List<Car> GetCars()
         {
             return Parking.listCars;
@@ -22,12 +20,12 @@ namespace WebParking.Services
             Program.parking.AddCar(car);
         }
 
-        public List<Transaction> GetTransaction()
+        public List<Transaction> GetTransactions()
         {
             return Program.parking.GetTransactions();
         }
 
-        public List<Transaction> GetTransactionLastMinute()
+        public List<Transaction> GetTransactionsLastMinute()
         {
             return Program.parking.GetTransactionsLastMinute();
         }
