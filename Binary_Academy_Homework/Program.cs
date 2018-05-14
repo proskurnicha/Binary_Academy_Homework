@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Binary_Academy_Homework
+namespace ClassLibrary
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Menu.DoWork();
+            //Menu.DoWork();
             Console.ReadLine();
         }
     }

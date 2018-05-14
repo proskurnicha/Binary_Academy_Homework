@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Binary_Academy_Homework
+namespace ClassLibrary
 {
-    class Transaction
+    public class Transaction
     {
         public DateTime DateTransaction { get; set; }
 
