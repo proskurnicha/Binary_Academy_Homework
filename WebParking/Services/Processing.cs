@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace WebParking.Services
 {
-    public class ProcessingCar
+    public class Processing
     {
         Parking parking;
 
-        public ProcessingCar()
+        public Processing()
         {
             parking = new Parking();
             parking.AddCar(new Car { Identifier = "A", Balance = 300, CarType = CarType.Bus });
@@ -33,5 +33,19 @@ namespace WebParking.Services
             return parking.GetTransactions();
         }
 
+        public int GetCountFreePlace()
+        {
+            return parking.CountFreeParkingSpace;
+        }
+
+        public int GetCountOqPlace()
+        {
+            return Settings.ParkingSpace - GetCountFreePlace();
+        }
+
+        public double GetBalance()
+        {
+            return Parking.Balance;
+        }
     }
 }

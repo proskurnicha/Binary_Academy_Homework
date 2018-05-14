@@ -25,9 +25,7 @@ namespace WebParking
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddScoped<ProcessingCar>();
-            services.AddScoped<ProcessingTransactions>();
-            services.AddScoped<ProcessingParking>();
+            services.AddScoped<Processing>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

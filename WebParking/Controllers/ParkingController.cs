@@ -12,9 +12,9 @@ namespace WebParking.Controllers
     [Route("api/Parking")]
     public class ParkingController : Controller
     {
-        private ProcessingParking _service;
+        private Processing _service;
 
-        public ParkingController(ProcessingParking service)
+        public ParkingController(Processing service)
         {
             _service = service;
         }

@@ -17,9 +17,9 @@ namespace WebParking.Controllers
     //-Поповнити баланс машини(PUT)
     public class TransactionsController : Controller
     {
-        private ProcessingCar _service;
+        private Processing _service;
 
-        public TransactionsController(ProcessingCar service)
+        public TransactionsController(Processing service)
         {
             _service = service;
         }
