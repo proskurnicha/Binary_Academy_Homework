@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using ClassLibrary;
 using System.Web;
 using WebParking.Services;
+using System.Net.Http;
+using System.Net;
 
 namespace WebParking.Controllers
 {
@@ -25,6 +27,10 @@ namespace WebParking.Controllers
         [HttpGet]
         public IEnumerable<Car> Get()
         {
+            IEnumerable<Car> cars = _service.GetCars();
+            if (cars == null)
+                NotFound();
+
             return _service.GetCars();
         }
 
@@ -32,7 +38,11 @@ namespace WebParking.Controllers
         [HttpGet("{id}", Name = "Get")]
         public IEnumerable<Car> Get(string id)
         {
-            return (_service.GetCars()).Where(x => x.Identifier == id);
+            IEnumerable<Car> cars = _service.GetCarsById(id);
+            if (cars == null)
+                NotFound();
+
+            return _service.GetCarsById(id);
         }
 
         // POST: api/Cars
@@ -45,9 +55,12 @@ namespace WebParking.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(string id)
+        public ActionResult Delete(string id)
         {
-            (_service.GetCars()).RemoveAll(x => x.Identifier == id);
+            if (_service.RemoveCarById(id))
+                return StatusCode(204);
+
+            return NotFound();
         }
     }
 }

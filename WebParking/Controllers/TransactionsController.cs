@@ -26,6 +26,10 @@ namespace WebParking.Controllers
         [HttpGet("log")]
         public IEnumerable<Transaction> GetLog()
         {
+            var transactions = _service.GetTransactions();
+            if (transactions == null)
+                NotFound();
+
             return _service.GetTransactions();
         }
 
@@ -54,10 +58,5 @@ namespace WebParking.Controllers
             if (cars.Count() > 0)
                 cars.First().TopUpBalance(value.Value);
         }
-    }
-
-    public class TopUpBalanceModel
-    {
-        public double Value { get; set; }
     }
 }

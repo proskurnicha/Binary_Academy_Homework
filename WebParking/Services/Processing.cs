@@ -15,9 +15,25 @@ namespace WebParking.Services
             return Parking.listCars;
         }
 
+        public List<Car> GetCarsById(string id)
+        {
+            return Parking.listCars.Where(x => x.Identifier == id).ToList();
+        }
+
         public void AddCar(Car car)
         {
             Program.parking.AddCar(car);
+        }
+
+        public bool RemoveCarById(string id)
+        {
+            Car car = GetCars().First(x => x.Identifier == id);
+            if (car != null)
+            {
+                GetCars().Remove(car);
+                return true;
+            }
+            return false;
         }
 
         public List<Transaction> GetTransactions()
